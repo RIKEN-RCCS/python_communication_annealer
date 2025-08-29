@@ -42,7 +42,6 @@ class Mesh3Dmodel(Graphmodel):
 		N = self.N
 		M = self.M
 		L = self.L
-		# pos1=nx.spring_layout(G,dim=3,seed=42)
 		pos2 = {perm[i]: (i % N, (i // N) % M, (i // (N * M)) % L) for i in range(SIZE)}
 		return pos2
 
@@ -73,8 +72,7 @@ class Mesh3Dmodel(Graphmodel):
 			cost = np.array([[0 for _ in range(SIZE)] for _ in range(SIZE)])
 			for i in range(SIZE):
 				t = i
-				f = 1 # 縦横を優先 0:たて,1:よこ,2:高さ？
-				# print(f"start: {t} , end: {s}")
+				f = 1 # 縦横を優先する変数 0:たて,1:よこ,2:高さ？
 				while t != s:
 					next = (np.inf,-1)
 					for j in range(SIZE):
@@ -89,7 +87,6 @@ class Mesh3Dmodel(Graphmodel):
 					prev = next[1]
 					cost[t][prev] += C[s][i]
 					cost[prev][t] += C[s][i]
-					# print(t,f,next)
 					t = prev
 					f = (f + 1) % 3
 
@@ -111,6 +108,9 @@ class Visualizer3D:
 		self.sum = -1
 
 	def generate_graph(self, filename, score, perm, A, C):
+		"""
+			実装が出来ません
+		"""
 		pass
 
 if __name__ == "__main__":

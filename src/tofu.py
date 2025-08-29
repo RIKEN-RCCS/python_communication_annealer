@@ -82,20 +82,18 @@ class Mesh6Dmodel(Graphmodel):
 			cost = np.array([[0 for _ in range(SIZE)] for _ in range(SIZE)])
 			for i in range(SIZE):
 				t = i
-				# f = 1 # 縦横を優先 0:たて,1:よこ,2:高さ？
-				# print(f"start: {t} , end: {s}")
+				# f = 1 # 縦横を優先する変数 0:たて,1:よこ,2:高さ
 				while t != s:
 					next = (np.inf,-1)
 					for j in range(SIZE):
 						if (A[j][t] == 1) and (d[j]+1 == d[t]):
-							next = min(next,j) # わからないから仮
+							next = min(next,j) # 仮
 					if next[0] == np.inf:
 						print("FAILED")
 						sys.exit(1)
 					prev = next[1]
 					cost[t][prev] += C[s][i]
 					cost[prev][t] += C[s][i]
-					# print(t,f,next)
 					t = prev
 					# f = (f + 1) % 3
 

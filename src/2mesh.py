@@ -29,7 +29,6 @@ class Mesh2Dmodel(Graphmodel):
 
 	def generate_pos(self,G,perm):
 		pos = {perm[n]: (n%M,-(n//M)) for n in G.nodes()}
-		# pos1 = nx.kamada_kawai_layout(G)
 		return pos
 
 	def calculate_cost(self,A,C,perm):
@@ -59,10 +58,8 @@ class Mesh2Dmodel(Graphmodel):
 			cost = np.array([[0 for _ in range(SIZE)] for _ in range(SIZE)])
 			for i in range(SIZE):
 				t = i
-				f = 1 # 縦横を優先 0:たて,1:よこ
-				# print(f"start: {t} , end: {s}")
+				f = 1 # 縦横を優先する変数 0:たて,1:よこ
 				while t != s:
-					# print(t)
 					next = (np.inf,-1)
 					for j in range(SIZE):
 						if (A[j][t] == 1) and (d[j]+1 == d[t]):
@@ -106,8 +103,8 @@ class Visualizer2D:
 		count = np.count_nonzero(dis)
 		if self.red== -1:
 			self.sum = np.sum(dis)
-			self.red = sorted(dis.ravel())[-int(0.3*count)] # 要調整
-			self.green = sorted(dis.ravel())[int(0.3*count+(SIZE*SIZE-count))] # 要調整
+			self.red = sorted(dis.ravel())[-int(0.3*count)]
+			self.green = sorted(dis.ravel())[int(0.3*count+(SIZE*SIZE-count))]
 		edgecolor = []
 		width = []
 		all = 0
@@ -129,15 +126,14 @@ class Visualizer2D:
 					all += dis[i][j]
 					nmax = max(nmax,dis[i][j])
 
-		# print("\nsum: "+str(all))
-		# print("max: "+str(nmax)+"\n")
+		print("\nsum: "+str(all))
+		print("max: "+str(nmax)+"\n")
 		pos = self.model.generate_pos(G,perm)
 
 		nx.draw(G,width=width,edge_color=edgecolor,pos=pos,with_labels=True)
 		plt.savefig(f"{filename}.png")
 		plt.close()
-		# os.system(f"img2sixel {filename}.png")
-
+	
 
 if __name__ == "__main__":
 	N,M = 5,5

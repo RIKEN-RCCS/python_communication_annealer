@@ -68,7 +68,6 @@ class ProcessMapping:
 
 		plt.savefig(filename)
 		plt.close()
-		# os.system(f"img2sixel {filename}")
 
 	def generate_C_graph(self,filename):
 		adj_matrix = self.C
@@ -103,7 +102,7 @@ class ProcessMapping:
 		prob = Mapping(initial_state)
 		first_score = prob.energy()
 		prob.steps = steps
-		prob.copy_strategy = "method" # これはなに
+		prob.copy_strategy = "method" # これはなに←理解しました
 		state,final_score = prob.anneal()
 
 		self.model.visualizer.generate_graph(f"../out/{self.filename}_1",first_score,perm,self.A,self.C)
@@ -116,7 +115,6 @@ class ProcessMapping:
 		self.model.visualizer.generate_graph(f"../out/{self.filename}_2",final_score,state.perm,A_perm,self.C)
 		self.generate_process_graph(f"../out/{self.filename}_p.png")
 		self.generate_C_graph(f"../out/{self.filename}_c.png")
-		# print(steps,final_score)
 
 
 class Mapping(Annealer):

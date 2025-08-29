@@ -61,8 +61,7 @@ class Torus2Dmodel(Graphmodel):
 			cost = np.array([[0 for _ in range(SIZE)] for _ in range(SIZE)])
 			for i in range(SIZE):
 				t = i
-				f = 1 # 縦横を優先 0:たて,1:よこ
-				# print(f"start: {t} , end: {s}")
+				f = 1 # 縦横を優先する変数 0:たて,1:よこ
 				while t != s:
 					# print(t)
 					next = (np.inf, -1)
@@ -122,7 +121,7 @@ class Visualizer2D:
 		return x, y, z_bump
 
 
-	def generate_graph(self,filename,score,perm,A,C): # self,filename,score,perm,A,C
+	def generate_graph(self,filename,score,perm,A,C):
 		SIZE = self.model.SIZE
 		
 		G = nx.Graph()
@@ -130,8 +129,8 @@ class Visualizer2D:
 		count = np.count_nonzero(dis)
 		if self.red == -1:
 			self.sum = np.sum(dis)
-			self.red = sorted(dis.ravel())[-int(0.3*count)] # 要調整
-			self.green = sorted(dis.ravel())[int(0.3*count+(SIZE*SIZE-count))] # 要調整
+			self.red = sorted(dis.ravel())[-int(0.3*count)]
+			self.green = sorted(dis.ravel())[int(0.3*count+(SIZE*SIZE-count))]
 		edgecolor = [[0 for _ in range(SIZE)] for _ in range(SIZE)]
 		width = [[0 for _ in range(SIZE)] for _ in range(SIZE)]
 		all = 0
@@ -178,7 +177,7 @@ class Visualizer2D:
 			y=[pos[u][1],pos[v][1],None]
 			z=[pos[u][2],pos[v][2],None]
 
-			if (abs(perm_inv[v]-perm_inv[u])==1) or (abs(perm_inv[v]-perm_inv[u])==math.sqrt(SIZE)): # 仮
+			if (abs(perm_inv[v]-perm_inv[u])==1) or (abs(perm_inv[v]-perm_inv[u])==math.sqrt(SIZE)): # N!=Mだとバグります(深刻)
 				edge_traces.append(go.Scatter3d(
 					x=x,y=y,z=z,
 					mode='lines',

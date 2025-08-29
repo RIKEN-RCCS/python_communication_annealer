@@ -39,7 +39,6 @@ class Mesh3Dmodel(Graphmodel):
 		N = self.N
 		M = self.M
 		L = self.L
-		# pos1=nx.spring_layout(G,dim=3,seed=42)
 		pos2 = {perm[i]: (i % N, (i // N) % M, (i // (N * M)) % L) for i in range(SIZE)}
 		return pos2
 
@@ -70,8 +69,7 @@ class Mesh3Dmodel(Graphmodel):
 			cost = np.array([[0 for _ in range(SIZE)] for _ in range(SIZE)])
 			for i in range(SIZE):
 				t = i
-				f = 1 # 縦横を優先 0:たて,1:よこ,2:高さ？
-				# print(f"start: {t} , end: {s}")
+				f = 1 # 縦横を優先する変数 0:たて,1:よこ,2:高さ？
 				while t != s:
 					next = (np.inf,-1)
 					for j in range(SIZE):
@@ -117,8 +115,8 @@ class Visualizer3D:
 		count = np.count_nonzero(dis)
 		if self.red== -1:
 			self.sum = np.sum(dis)
-			self.red = sorted(dis.ravel())[-int(0.3*count)] # 要調整
-			self.green = sorted(dis.ravel())[int(0.3*count+(SIZE*SIZE-count))] # 要調整
+			self.red = sorted(dis.ravel())[-int(0.3*count)]
+			self.green = sorted(dis.ravel())[int(0.3*count+(SIZE*SIZE-count))]
 		
 		edgecolor = [[0 for _ in range(SIZE)] for _ in range(SIZE)]
 		width = [[0 for _ in range(SIZE)] for _ in range(SIZE)]

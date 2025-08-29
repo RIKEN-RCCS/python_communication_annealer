@@ -89,9 +89,9 @@ class Visualizer1D:
 		count = np.count_nonzero(dis)
 		if self.red== -1:
 			self.sum = np.sum(dis)
-			self.red = sorted(dis.ravel())[-int(0.3*count)] # 要調整
-			self.green = sorted(dis.ravel())[int(0.3*count+(SIZE*SIZE-count))] # 要調整
-		
+			self.red = sorted(dis.ravel())[-int(0.3*count)]
+			self.green = sorted(dis.ravel())[int(0.3*count+(SIZE*SIZE-count))]
+
 		edgecolor = []
 		width = []
 		all = 0
@@ -109,7 +109,7 @@ class Visualizer1D:
 						edgecolor.append("Green")
 					else:
 						edgecolor.append("Black")
-					width.append(dis[i][j]/(self.sum/SIZE)*7)
+					width.append(dis[i][j]/(self.sum/SIZE)*7) # これくらいが丁度良い
 					all += dis[i][j]
 					nmax = max(nmax,dis[i][j])
 
@@ -120,7 +120,6 @@ class Visualizer1D:
 		nx.draw(G,width=width,edge_color=edgecolor,pos=pos,with_labels=True)
 		plt.savefig(f"{filename}.png")
 		plt.close()
-		# os.system(f"img2sixel {filename}.png")
 
 
 if __name__ == "__main__":
